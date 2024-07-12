@@ -1,0 +1,37 @@
+@define end 0b11111111
+@define start 0b11111110
+
+
+// drawSprite,r2 =  pointer to sprite, r3  = sprite origin x, r7 = sprite origin y
+// r6 + r5 not preserved
+.drawSprite
+
+// check for start
+LOD R1 R2  
+BNE .finish R1 start
+ADD R2 R2 1
+.loop 
+
+LOD R1 R2
+// check for end
+BRE .finish R1 end 
+
+ADD R2 R2 1
+AND R5 R1 0b00001111  // mask for lo 
+BSR R6 R1 4 // hi
+ADD R6 R6 r7
+ADD r5 r5 r3
+// y = hi
+// x = lo
+OUT %x R5
+Out %y R6
+Out %color 1
+jmp .loop
+
+
+
+
+.finish
+IMM R2 0
+IMM R1 0
+RET
