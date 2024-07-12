@@ -4,6 +4,7 @@
 
 // drawSprite,r2 =  pointer to sprite, r3  = sprite origin x, r7 = sprite origin y
 // r6 + r5 not preserved
+// max offset = 15 for both x and Y 
 .drawSprite
 
 // check for start
